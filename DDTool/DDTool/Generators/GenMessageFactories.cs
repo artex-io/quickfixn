@@ -17,7 +17,8 @@ public static class GenMessageFactories {
     }
 
     private static string WriteFile(string baseDir, DataDictionary dd) {
-        string filePath = Path.Join(baseDir, "Messages", dd.Name, "MessageFactory.cs");
+        var fixVersionDir = dd.SourceFile.Contains("artex") ? $"{dd.IdentifierNoDots}artex" : dd.IdentifierNoDots;
+        string filePath = Path.Join($"{baseDir}", "Messages", fixVersionDir, "MessageFactory.cs");
         Directory.CreateDirectory(
             Path.GetDirectoryName(filePath)!);
         File.WriteAllText(filePath, Generate(dd));
